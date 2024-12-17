@@ -15,9 +15,9 @@ with open(data) as d:
     # list occupants who are 19+ only: First, last, address, age.
     # Sorted by last name, first name
 
-    cursor.execute("DROP TABLE users")
+    cursor.execute("DROP TABLE IF EXISTS users")
     cursor.execute("CREATE TABLE users (first_name TEXT NOT NULL, last_name TEXT NOT NULL, street TEXT NOT NULL, city TEXT NOT NULL, state TEXT NOT NULL, age NUM NOT NULL)")
-    
+    cursor.execute("INSERT INTO users (first_name, last_name, street, city, state, age) VALUES ('Dave', 'some', '123 main', 'seattle', 'wa', '42')")
     # cursor.execute("INSERT users FROM `d` WITH(FIRSTROW = 1, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n');")
 
     # with open(output_file, "w") as o:
