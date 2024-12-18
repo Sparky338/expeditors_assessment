@@ -11,7 +11,7 @@ def iter_data():
     with open(data) as d:
         # print(d.read())
         for row in d:
-            yield row.split(",")
+            yield row.replace(",", "").rstrip().split('""')
 
 query = '''INSERT INTO users (first_name, last_name, street, city, state, age) VALUES (?, ?, ?, ?, ?, ?)'''
 
@@ -24,12 +24,8 @@ cursor.execute("CREATE TABLE users (first_name TEXT NOT NULL, last_name TEXT NOT
 with connection:
     connection.executemany(query, iter_data())
 
-connection.close()
-    # cursor.execute("INSERT INTO users (first_name, last_name, street, city, state, age) VALUES ('Dave', 'some', '123 main', 'seattle', 'wa', '42')")
-
-    # # cursor.execute("INSERT users FROM `d` WITH(FIRSTROW = 1, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n');")
-
 with open(output_file, "w") as o:
     o.write(str(cursor.execute("SELECT * FROM users").fetchall()))
 
+connection.close()
     #     o.write("\n".join(sorted(d.read().splitlines())))
