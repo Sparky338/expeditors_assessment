@@ -11,7 +11,7 @@ def iter_data():
     with open(data) as d:
         # print(d.read())
         for row in d:
-            yield row.replace(",", "").rstrip().split('""')
+            yield row.replace(",", "").rstrip().strip('"').split('""')
 
 query = '''INSERT INTO users (first_name, last_name, street, city, state, age) VALUES (?, ?, ?, ?, ?, ?)'''
 
