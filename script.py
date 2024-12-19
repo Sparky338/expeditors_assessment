@@ -28,17 +28,19 @@ with connection:
 cursor.execute("UPDATE users SET street = trim(street)")
 
 # group by Household (Address and count of occupants),
-address = """SELECT street, city, state, COUNT(first_name)
+household = """SELECT street || " " || city || " " || state, COUNT(first_name)
 FROM users
-GROUP BY street, city, state"""
+GROUP BY street, city, state;"""
+
 # # list occupants who are 19+ only: First, last, address, age.
-# SELECT first_name, last_name, address -IF POSSIBLE- (street, city, state), age
-# WHERE age >= 19
 # # Sorted by last name, first name
-# ORDER BY last_name, first_name;
+members = """SELECT first_name, last_name, street || " " || city || " " || state, age
+FROM users
+WHERE age >= 19
+ORDER BY last_name, first_name;"""
 
 with open(output_file, "w") as o:
-    o.write(str(cursor.execute(address).fetchall()))
+    o.write(str(cursor.execute(members).fetchall()))
 
 connection.close()
     #     o.write("\n".join(sorted(d.read().splitlines())))
