@@ -24,6 +24,9 @@ cursor.execute("CREATE TABLE users (first_name TEXT NOT NULL, last_name TEXT NOT
 with connection:
     connection.executemany(read_data, iter_data())
 
+# removes extra space at the end of a street.
+cursor.execute("UPDATE users SET street = trim(street)")
+
 # group by Household (Address and count of occupants),
 address = """SELECT street, city, state, COUNT(first_name)
 FROM users
