@@ -36,11 +36,16 @@ GROUP BY street, city, state;"""
 # # Sorted by last name, first name
 members = """SELECT first_name, last_name, street || " " || city || " " || state, age
 FROM users
-WHERE age >= 19
-ORDER BY last_name, first_name;"""
+WHERE age >= 19 AND street || " " || city || " " || state LIKE "{curr}"
+ORDER BY last_name, first_name;""".format(curr = "123%")
+# GROUP BY street, city, state
 
-with open(output_file, "w") as o:
-    o.write(str(cursor.execute(members).fetchall()))
+for id in cursor.execute(household):
+    print(id, "\n", "\t", f"insert members query with {id[0]} here")
+# print(cursor.execute(members).fetchall())
+
+# with open(output_file, "w") as o:
+#     o.write(str(cursor.execute(household).fetchall()).strip("[").strip("]"))
 
 connection.close()
     #     o.write("\n".join(sorted(d.read().splitlines())))
