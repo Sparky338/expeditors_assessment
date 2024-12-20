@@ -1,4 +1,5 @@
 import sqlite3
+from collections import defaultdict
 
 connection = sqlite3.connect("user_data.db")
 cursor = connection.cursor()
@@ -34,18 +35,27 @@ GROUP BY street, city, state;"""
 
 # # list occupants who are 19+ only: First, last, address, age.
 # # Sorted by last name, first name
-def mem(id):
-    cursor.execute("""SELECT first_name, last_name, street || " " || city || " " || state, age
-    FROM users
-    WHERE age >= 19 AND street || " " || city || " " || state LIKE "{curr}"
-    ORDER BY last_name, first_name;""".format(curr = f"{id}"))#.fetchall()
-    # NEEDS WORK TO OPERATE CORRECTLY
+# def mem(id):
+#     cursor.execute("""SELECT first_name, last_name, street || " " || city || " " || state, age
+#     FROM users
+#     WHERE age >= 19 AND street || " " || city || " " || state LIKE "{curr}"
+#     ORDER BY last_name, first_name;""".format(curr = f"{id}"))#.fetchall()
+#     # NEEDS WORK TO OPERATE CORRECTLY
 # GROUP BY street, city, state
 
-# res = cursor.execute(members).fetchall()
+members = cursor.execute("""SELECT first_name, last_name, street || " " || city || " " || state, age
+    FROM users
+    WHERE age >= 19
+    ORDER BY last_name, first_name;""").fetchall()
+
+members_dict = defaultdict(list)
+
+for i in members:
+    members_dict[i[2]].append(i)
+
 
 for id in cursor.execute(household):
-    print(id, "\n", "\t", mem(id[0]))# POSSIBLE OPTION f"{[x for x in res if x[2] == id[0]]}" + "\n")
+    print(id, "\n", "\t", members_dict[id[0]])# POSSIBLE OPTION f"{[x for x in res if x[2] == id[0]]}" + "\n"), better would be to create an object from res and reference that
 
 # print(cursor.execute(members).fetchall())
 
