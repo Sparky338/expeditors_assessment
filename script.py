@@ -33,29 +33,25 @@ household = """SELECT street || " " || city || " " || state, COUNT(first_name)
 FROM users
 GROUP BY street, city, state;"""
 
-# # list occupants who are 19+ only: First, last, address, age.
-# # Sorted by last name, first name
-# def mem(id):
-#     cursor.execute("""SELECT first_name, last_name, street || " " || city || " " || state, age
-#     FROM users
-#     WHERE age >= 19 AND street || " " || city || " " || state LIKE "{curr}"
-#     ORDER BY last_name, first_name;""".format(curr = f"{id}"))#.fetchall()
-#     # NEEDS WORK TO OPERATE CORRECTLY
-# GROUP BY street, city, state
-
+# list occupants who are 19+ only: First, last, address, age.
+# Sorted by last name, first name
 members = cursor.execute("""SELECT first_name, last_name, street || " " || city || " " || state, age
-    FROM users
-    WHERE age >= 19
-    ORDER BY last_name, first_name;""").fetchall()
+FROM users
+WHERE age >= 19
+ORDER BY last_name, first_name;""").fetchall()
 
 members_dict = defaultdict(list)
 
+# add household members to a list under the key of their address
 for i in members:
     members_dict[i[2]].append(i)
 
+# return users on a new line and indented
+def household_members(id):
+    return "\n\t".join(str(i)for i in members_dict[id])
 
 for id in cursor.execute(household):
-    print(id, "\n", "\t", members_dict[id[0]])# POSSIBLE OPTION f"{[x for x in res if x[2] == id[0]]}" + "\n"), better would be to create an object from res and reference that
+    print(id[0], ",", id[1], "Household occupants" "\n\t", household_members(id[0]), "\n")
 
 # print(cursor.execute(members).fetchall())
 
