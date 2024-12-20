@@ -34,14 +34,19 @@ GROUP BY street, city, state;"""
 
 # # list occupants who are 19+ only: First, last, address, age.
 # # Sorted by last name, first name
-members = """SELECT first_name, last_name, street || " " || city || " " || state, age
-FROM users
-WHERE age >= 19 AND street || " " || city || " " || state LIKE "{curr}"
-ORDER BY last_name, first_name;""".format(curr = "123%")
+def mem(id):
+    cursor.execute("""SELECT first_name, last_name, street || " " || city || " " || state, age
+    FROM users
+    WHERE age >= 19 AND street || " " || city || " " || state LIKE "{curr}"
+    ORDER BY last_name, first_name;""".format(curr = f"{id}"))#.fetchall()
+    # NEEDS WORK TO OPERATE CORRECTLY
 # GROUP BY street, city, state
 
+# res = cursor.execute(members).fetchall()
+
 for id in cursor.execute(household):
-    print(id, "\n", "\t", f"insert members query with {id[0]} here")
+    print(id, "\n", "\t", mem(id[0]))# POSSIBLE OPTION f"{[x for x in res if x[2] == id[0]]}" + "\n")
+
 # print(cursor.execute(members).fetchall())
 
 # with open(output_file, "w") as o:
