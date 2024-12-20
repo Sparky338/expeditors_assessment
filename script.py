@@ -50,13 +50,13 @@ for i in members:
 def household_members(id):
     return "\n\t".join(str(i)for i in members_dict[id])
 
-for id in cursor.execute(household):
-    print(id[0], ",", id[1], "Household occupants" "\n\t", household_members(id[0]), "\n")
 
 # print(cursor.execute(members).fetchall())
 
-# with open(output_file, "w") as o:
-#     o.write(str(cursor.execute(household).fetchall()).strip("[").strip("]"))
+with open(output_file, "w") as o:
+    for id in cursor.execute(household):
+        # print(id[0], ",", id[1], "Household occupants", "\n\t", household_members(id[0]))
+        o.write(" ".join((id[0], ",", str(id[1]), "Household occupants", "\n\t", household_members(id[0]), "\n")))
 
 connection.close()
     #     o.write("\n".join(sorted(d.read().splitlines())))
