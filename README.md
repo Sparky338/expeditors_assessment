@@ -1,5 +1,15 @@
 # Developer in Test Programming Assessment
 
+## Running the script
+If you have Python already installed, navigate to the `script.py` file in your preferred IDE.
+In the terminal, use the command `python3 script.py`. This will run the script, creating a SQLite3
+database, SQL table that it will perform queries on, and will make a new text document,
+`sorted_data.txt`, that will follow the below Additional Expectations and Output Format requirements.
+
+
+## Assessment Requirements
+(The following is from the PDF provided by Mike Litke)
+
 This exercise is meant to provide evaluation of a candidate’s programming skills and abilities.
 Programming is an important aspect of software development, manual testing, and test automation.
 Before beginning the exercise, ensure you are aware of the following:
