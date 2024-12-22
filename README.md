@@ -1,10 +1,16 @@
 # Developer in Test Programming Assessment
 
 ## Running the script
-If you have Python already installed, navigate to the `script.py` file in your preferred IDE.
-In the terminal, use the command `python3 script.py`. This will run the script, creating a SQLite3
-database, SQL table that it will perform queries on, and will make a new text document,
-`sorted_data.txt`, that will follow the below Additional Expectations and Output Format requirements.
+If you just want the script to run to get the sorted data, click the `script.exe` in the
+folder that contains this document. This will read the `Expeditor_Data.txt` and create a
+few new files, including the `sorted_data.txt`, which provides the output specified
+in the below **Additional Expectations** and **Output Format** sections.
+
+If you have Python already installed and wish to skip opening an executable, navigate to the
+`script.py` file in your preferred IDE. In the terminal, use the command `python3 script.py`.
+This will run the script, creating a SQLite3 database, SQL table that it will perform
+queries on, and will make a new text document, `sorted_data.txt`, which provides the
+output specified in the below **Additional Expectations** and **Output Format** sections.
 
 
 ## Assessment Requirements
