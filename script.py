@@ -29,6 +29,7 @@ with connection:
 
 # Removes extra space at the end of a street.
 cursor.execute("UPDATE users SET street = trim(street)")
+cursor.execute("UPDATE users SET state = upper(state)")
 
 # Group by Household (Address and count of occupants),
 household = """SELECT street || " " || city || " " || state, COUNT(first_name)
