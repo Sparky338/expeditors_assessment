@@ -11,7 +11,7 @@ output_file = "sorted_data.txt"
 read_data = '''INSERT INTO users (first_name, last_name, street, city, state, age) VALUES (?, ?, ?, ?, ?, ?)'''
 
 
-def iter_data():
+def iter_data() -> any:
     with open(data) as d:
         for row in d:
             # Remove commas and periods, strip newline, strip " at start and end, split values on "".
@@ -51,7 +51,7 @@ for i in members:
     members_dict[i[2]].append(i)
 
 # Return users on an indented new line.
-def household_members(id):
+def household_members(id:str) -> str:
     return "\n\t".join(str(list(i)) for i in members_dict[id])
 
 # Create a new document and write in the grouped, sorted, and ordered data.
