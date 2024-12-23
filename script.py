@@ -14,7 +14,7 @@ read_data = '''INSERT INTO users (first_name, last_name, street, city, state, ag
 def iter_data():
     with open(data) as d:
         for row in d:
-            # Remove commas and periods, strip newline, strip " at start and end, split values on ""
+            # Remove commas and periods, strip newline, strip " at start and end, split values on "".
             yield row.replace(",", "").replace(".", "").title().rstrip().strip('"').split('""')
 
 # Remove the previous table if it exists.
@@ -29,15 +29,16 @@ with connection:
 
 # Removes extra space at the end of a street.
 cursor.execute("UPDATE users SET street = trim(street)")
+# Capitalizes the state abbreviation.
 cursor.execute("UPDATE users SET state = upper(state)")
 
-# Group by Household (Address and count of occupants),
+# Group by Household (Address and count of occupants).
 household = """SELECT street || " " || city || " " || state, COUNT(first_name)
 FROM users
 GROUP BY street, city, state;"""
 
 # List occupants who are 19+ only: First, Last, address, age.
-# Sorted by last name, first name
+# Sorted by last name, first name.
 members = cursor.execute("""SELECT first_name, last_name, street || " " || city || " " || state, age
 FROM users
 WHERE age >= 19
@@ -45,11 +46,11 @@ ORDER BY last_name, first_name;""").fetchall()
 
 members_dict = defaultdict(list)
 
-# Add household members to a list under the key of their address
+# Add household members to a list under the key of their address.
 for i in members:
     members_dict[i[2]].append(i)
 
-# Return users on an indented new line
+# Return users on an indented new line.
 def household_members(id):
     return "\n\t".join(str(list(i)) for i in members_dict[id])
 
