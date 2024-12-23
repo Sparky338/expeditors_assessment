@@ -55,6 +55,6 @@ def household_members(id):
 # Create a new document and write in the grouped, sorted, and ordered data.
 with open(output_file, "w") as o:
     for id in cursor.execute(household):
-        o.write("".join((id[0], ",", str(id[1]), "Household Occupants", "\n\t", household_members(id[0]).replace("[","").replace("]","") or "'No one 19 or older lives in this Household.'", "\n")))
+        o.write("".join((id[0], ", ", str(id[1]), " Household Occupants", "\n\t", household_members(id[0]).replace("[","").replace("]","") or "'No one 19 or older lives in this Household.'", "\n")))
 
 connection.close()
